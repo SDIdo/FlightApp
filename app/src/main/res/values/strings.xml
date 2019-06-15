@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FlightApp</string>
+    <string name="debug">got the semaphore before sending msg</string>
+</resources>
