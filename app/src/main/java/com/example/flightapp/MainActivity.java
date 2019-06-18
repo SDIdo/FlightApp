@@ -1,6 +1,4 @@
 package com.example.flightapp;
-import java.io.*;
-import java.net.*;
 import java.util.concurrent.Semaphore;
 
 import android.content.Intent;
@@ -9,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import static java.lang.Thread.sleep;
 
