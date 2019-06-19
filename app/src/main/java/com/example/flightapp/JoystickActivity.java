@@ -21,8 +21,8 @@ public class JoystickActivity extends AppCompatActivity implements Joystick.Joys
     private static final float CENTER = 0;
     private static final String UPPER_BOUND_STR = "1";
     private static final String LOWER_BOUND_STR = "-1";
-    private static final String SET_AILERON = "set /controls/flight/aileron";
-    private static final String SET_ELEVATOR = "set /controls/flight/elevator";
+    private static final String SET_AILERON = "set /controls/flight/aileron ";
+    private static final String SET_ELEVATOR = "set /controls/flight/elevator ";
     private static final String NEW_LINE = "\r\n";
 
 
@@ -95,7 +95,7 @@ public class JoystickActivity extends AppCompatActivity implements Joystick.Joys
     }
 
     /***
-     * Upon exiting app and/or pressing the back button disconnect from server.
+     * Upon exiting app and/or pressing the back button, disconnect from server.
      */
     @Override
     protected void onDestroy() {

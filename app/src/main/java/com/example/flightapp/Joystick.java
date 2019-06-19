@@ -13,7 +13,11 @@ import android.view.View;
  * The joystick component.
  */
 public class Joystick extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener{
+    //magic numbers//
 
+    private static final float RADIUS_LIM = 1.3f;
+
+    //members//
     float centerX;
     float centerY;
     float baseRadius;
@@ -111,7 +115,7 @@ public class Joystick extends SurfaceView implements SurfaceHolder.Callback, Vie
         float displacement = (float) Math.sqrt(Math.pow(motionEvent.getX() - centerX, 2)
                 + Math.pow(motionEvent.getY() - centerY, 2));
         float ratio = baseRadius / displacement;
-        if(displacement < baseRadius) {
+        if(displacement < (baseRadius / RADIUS_LIM)) {
             pressedInBase = true;
             if (motionEvent.getAction() != motionEvent.ACTION_UP) {
                 drawJoystick(motionEvent.getX(), motionEvent.getY());
@@ -129,11 +133,12 @@ public class Joystick extends SurfaceView implements SurfaceHolder.Callback, Vie
             else{   /// out of joystick base
                 if (pressedInBase && motionEvent.getAction() != motionEvent.ACTION_UP) {
 
-                float constrainedX = centerX + (motionEvent.getX() - centerX) * ratio;
-                float constrainedY = centerY + (motionEvent.getY() - centerY) * ratio;
+                float constrainedX = centerX + (motionEvent.getX() - centerX) * ratio / RADIUS_LIM;
+                float constrainedY = centerY + (motionEvent.getY() - centerY) * ratio / RADIUS_LIM;
                 drawJoystick(constrainedX, constrainedY);
-                joystickCallback.onJoystickMoved((constrainedX - centerX) / baseRadius,
-                    (constrainedY - centerY) / baseRadius);
+                joystickCallback.onJoystickMoved((constrainedX - centerX)
+                                / baseRadius* (RADIUS_LIM),
+                    (constrainedY - centerY) / baseRadius * (RADIUS_LIM));
                 }
                 if (pressedInBase && motionEvent.getAction() == motionEvent.ACTION_UP) {
                     pressedInBase = false;
@@ -151,7 +156,7 @@ public class Joystick extends SurfaceView implements SurfaceHolder.Callback, Vie
     public interface JoystickListener
     {
         /**
-         * Joystick Observer
+         * onJoystickMoved - The Joystick Observer
          * @param xPercent - the x location of the knob
          * @param yPercent - the y location of the knob
          */
